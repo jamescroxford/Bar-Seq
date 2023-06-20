@@ -1,0 +1,281 @@
+from fuzzysearch import find_near_matches
+from colorama import Fore, Back, Style
+import matplotlib.pyplot as plt
+import pandas as pd
+import sys
+import os
+from IPython.display import clear_output
+
+
+
+
+def complement(seq):
+    complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A'}
+    bases = list(seq)
+    bases = [complement[base] for base in bases]
+    return ''.join(bases)
+
+
+def readMINionFASTQ(file_path):
+    progress = 0
+    name = []
+    reads = []
+    q_score = []
+    opened = open(file_path, "r")
+    readed = opened.read()
+    split = readed.split("\n")
+    count = 0
+    print("Processing Fastq:")
+    for a in split:
+        progress += 1
+        count += 1
+        progress1 = progress / len(split) * 100
+        push = 100 - int(progress1)
+        clear_output(wait=True)
+        sys.stdout.write("Progress: " + Back.YELLOW + " " * int(progress1) + Style.RESET_ALL + Back.RED + " " * int(
+            push) + Style.RESET_ALL)
+        if count == 1:
+            name.append(a)
+        if count == 2:
+            reads.append(a)
+        if count == 4:
+            q_score.append(a)
+            count -= 4
+    return name, reads, q_score
+
+
+names, reads, q_scpre = readMINionFASTQ("FILE_PATH"
+                                        "")
+
+JCb1 = "TACAATAAAGGGCAGGTGCAACCAT"
+JCb1_comp = complement(JCb1)
+JCb1_rev = JCb1[::-1]
+JCb1_rev_comp = JCb1_comp[::-1]
+
+JCb2 = "TGACCAAGCCTGAATAGCGTCATAA"
+JCb2_comp = complement(JCb2)
+JCb2_rev = JCb2[::-1]
+JCb2_rev_comp = JCb2_comp[::-1]
+
+JCb3 = "CGTGTATTAGAGTAATCGCATCTAG"
+JCb3_comp = complement(JCb3)
+JCb3_rev = JCb3[::-1]
+JCb3_rev_comp = JCb3_comp[::-1]
+
+JCb4 = "TAGCGTTAGCGGCCACGGAACATCA"
+JCb4_comp = complement(JCb4)
+JCb4_rev = JCb4[::-1]
+JCb4_rev_comp = JCb4_comp[::-1]
+
+JCb5 = "TCCTCTCGGGAGGCCAATAGAAACG"
+JCb5_comp = complement(JCb5)
+JCb5_rev = JCb5[::-1]
+JCb5_rev_comp = JCb5_comp[::-1]
+
+JCb6 = "TACGCTTGACCCGTGTAGCTGTCAG"
+JCb6_comp = complement(JCb6)
+JCb6_rev = JCb6[::-1]
+JCb6_rev_comp = JCb6_comp[::-1]
+
+JCb7 = "TGGTTAACACGGAACCTGAGATCCC"
+JCb7_comp = complement(JCb7)
+JCb7_rev = JCb7[::-1]
+JCb7_rev_comp = JCb7_comp[::-1]
+
+JCb8 = "TAGCACACCTAGCGTGAACCGAGCC"
+JCb8_comp = complement(JCb8)
+JCb8_rev = JCb8[::-1]
+JCb8_rev_comp = JCb8_comp[::-1]
+
+JCb9 = "TTACCCATTAAGAGCTCAGCGCAAC"
+JCb9_comp = complement(JCb9)
+JCb9_rev = JCb9[::-1]
+JCb9_rev_comp = JCb9_comp[::-1]
+
+JCb10 = "TACAGGGAAGACCTACCCGATTCCC"
+JCb10_comp = complement(JCb10)
+JCb10_rev = JCb10[::-1]
+JCb10_rev_comp = JCb10_comp[::-1]
+
+JCb11 = "TAAGTCAAGTGTCCGGTTCTCCCCG"
+JCb11_comp = complement(JCb11)
+JCb11_rev = JCb11[::-1]
+JCb11_rev_comp = JCb11_comp[::-1]
+
+JCb12 = "TCCGTGTTGTACGACGTTAGACAA"
+JCb12_comp = complement(JCb12)
+JCb12_rev = JCb12[::-1]
+JCb12_rev_comp = JCb12_comp[::-1]
+
+JCb13 = "TAGTCTACCTCGCATGGCTAAGCGG"
+JCb13_comp = complement(JCb13)
+JCb13_rev = JCb13[::-1]
+JCb13_rev_comp = JCb13_comp[::-1]
+
+JCb14 = "TATCCAGTCGGCGATAAGTATGCAA"
+JCb14_comp = complement(JCb14)
+JCb14_rev = JCb14[::-1]
+JCb14_rev_comp = JCb14_comp[::-1]
+
+JCb15 = "TCACAGGGACAGGTCATATCGTTCT"
+JCb15_comp = complement(JCb15)
+JCb15_rev = JCb15[::-1]
+JCb15_rev_comp = JCb15_comp[::-1]
+
+JCb16 = "TGACCCCGTAGTGCCGTTAAGTATC"
+JCb16_comp = complement(JCb16)
+JCb16_rev = JCb16[::-1]
+JCb16_rev_comp = JCb16_comp[::-1]
+
+JCb17 = "TCAATAAGCGAGCCGTAAGTTGATC"
+JCb17_comp = complement(JCb17)
+JCb17_rev = JCb17[::-1]
+JCb17_rev_comp = JCb17_comp[::-1]
+
+JCb18 = "TCAAAGATGCCCCGACTAGGTAATA"
+JCb18_comp = complement(JCb18)
+JCb18_rev = JCb18[::-1]
+JCb18_rev_comp = JCb18_comp[::-1]
+
+JCb19 = "TCTGCACATCCAGGCGACCGAATAT"
+JCb19_comp = complement(JCb19)
+JCb19_rev = JCb19[::-1]
+JCb19_rev_comp = JCb19_comp[::-1]
+
+JCb20 = "TCGACGATCATCGGTGAAGCGTTTG"
+JCb20_comp = complement(JCb20)
+JCb20_rev = JCb20[::-1]
+JCb20_rev_comp = JCb20_comp[::-1]
+
+def findBarcode(barcode, reads):
+    progress = 0
+    count = 0
+    len_read = []
+    rev_count = []
+    tot_len_bc = 0
+    tot_len_nbc = 0
+    no_comply = []
+    av_s = []
+    av_e = []
+    ready = []
+    print("Finding Barcodes:")
+    for a in reads:
+        progress += 1
+        progress1 = progress / len(reads) * 100
+        push = 100 - int(progress1)
+        clear_output(wait=True)
+        sys.stdout.write("Progress: " + Back.GREEN + " " * int(progress1) + Style.RESET_ALL + Back.RED + " " * int(push) + Style.RESET_ALL)
+        test1 = find_near_matches(barcode, a, max_l_dist=4)
+        test2 = str(test1).find("Match")
+        test3 = find_near_matches(complement(barcode), a[::-1], max_l_dist=4)
+        test4 = str(test3).find("Match")
+        if test2 != -1:
+            count += 1
+            ready.append(count)
+            start_loc = str(test1).split("=")[1].strip(", end")
+            end_loc = str(test1).split("=")[2].strip(", dist")
+            #print(a[0:int(start_loc)] + " " + Fore.YELLOW + a[int(start_loc):int(end_loc)] + Style.RESET_ALL + " " + a[
+                                                                                                                     #int(end_loc):len(
+                                                                                                                      #   a)])
+            tot_len_bc += len(a)
+            av_s.append(int(start_loc))
+            av_e.append(int(end_loc))
+            len_read.append(len(a))
+        if test4 != -1:
+            ready.append(count)
+            count += 1
+            b = a[::-1]
+            start_loc = str(test3).split("=")[1].strip(", end")
+            end_loc = str(test3).split("=")[2].strip(", dist")
+            #print(b[0:int(start_loc)] + " " + Fore.RED + b[int(start_loc):int(end_loc)] + Style.RESET_ALL + " " + b[
+                                                                                                                  #int(end_loc):len(
+                                                                                                       #   a)])
+            rev_count.append("Reverse")
+            av_s.append(int(start_loc))
+            av_e.append(int(end_loc))
+            tot_len_bc += len(a)
+            len_read.append(len(a))
+        else:
+            # print(Fore.BLUE + a + Style.RESET_ALL)
+            tot_len_nbc += len(a)
+            no_comply.append(a)
+
+    return count, tot_len_bc, tot_len_nbc, no_comply, av_s, av_e, ready, len_read
+
+print("\nBarcode 1:")
+bc1, avlenbc, avlenbnc, no_comply1, av_s, av_e, ready, len_read = findBarcode(JCb1, reads)
+print("\nBarcode 2:")
+bc2, avlenbc2, avlenbnc2, no_comply2, av_s2, av_e2, ready2, len_read2 = findBarcode(JCb2, reads)
+print("\nBarcode 3:")
+bc3, avlenbc3, avlenbnc3, no_comply3, av_s3, av_e3, ready3, len_read3 = findBarcode(JCb3, reads)
+print("\nBarcode 4:")
+bc4, avlenbc4, avlenbnc4, no_comply4, av_s4, av_e4, ready4, len_read4 = findBarcode(JCb4, reads)
+print("\nBarcode 5:")
+bc5, avlenbc5, avlenbnc5, no_comply5, av_s5, av_e5, ready5, len_read5 = findBarcode(JCb5, reads)
+print("\nBarcode 6:")
+bc6, avlenbc6, avlenbnc6, no_comply6, av_s6, av_e6, ready6, len_read6 = findBarcode(JCb6, reads)
+print("\nBarcode 7:")
+bc7, avlenbc7, avlenbnc7, no_comply7, av_s7, av_e7, ready7, len_read7 = findBarcode(JCb7, reads)
+print("\nBarcode 8:")
+bc8, avlenbc8, avlenbnc8, no_comply8, av_s8, av_e8, ready8, len_read8 = findBarcode(JCb8, reads)
+print("\nBarcode 9:")
+bc9, avlenbc9, avlenbnc9, no_comply9, av_s9, av_e9, ready9, len_read9 = findBarcode(JCb9, reads)
+print("\nBarcode 10:")
+bc10, avlenbc10, avlenbnc10, no_comply10, av_s10, av_e10, ready10, len_read10 = findBarcode(JCb10, reads)
+print("\nBarcode 11:")
+bc11, avlenbc11, avlenbnc11, no_comply11, av_s11, av_e11, ready11, len_read11 = findBarcode(JCb11, reads)
+print("\nBarcode 12:")
+bc12, avlenbc12, avlenbnc12, no_comply12, av_s12, av_e12, ready12, len_read12 = findBarcode(JCb12, reads)
+print("\nBarcode 13:")
+bc13, avlenbc13, avlenbnc13, no_comply13, av_s13, av_e13, ready13, len_read13 = findBarcode(JCb13, reads)
+print("\nBarcode 14:")
+bc14, avlenbc14, avlenbnc14, no_comply14, av_s14, av_e14, ready14, len_read14 = findBarcode(JCb14, reads)
+print("\nBarcode 15:")
+bc15, avlenbc15, avlenbnc15, no_comply15, av_s15, av_e15, ready15, len_read15 = findBarcode(JCb15, reads)
+print("\nBarcode 16:")
+bc16, avlenbc16, avlenbnc16, no_comply16, av_s16, av_e16, ready16, len_read16 = findBarcode(JCb16, reads)
+print("\nBarcode 17:")
+bc17, avlenbc17, avlenbnc17, no_comply17, av_s17, av_e17, ready17, len_read17 = findBarcode(JCb17, reads)
+print("\nBarcode 18:")
+bc18, avlenbc18, avlenbnc18, no_comply18, av_s18, av_e18, ready18, len_read18 = findBarcode(JCb18, reads)
+print("\nBarcode 19:")
+bc19, avlenbc19, avlenbnc19, no_comply19, av_s19, av_e19, ready19, len_read19 = findBarcode(JCb19, reads)
+print("\nBarcode 20:")
+bc20, avlenbc20, avlenbnc20, no_comply20, av_s20, av_e20, ready20, len_read20 = findBarcode(JCb20, reads)
+
+
+print("Barcode 1 = " + str(bc1) + " Out of " + str(len(reads)))
+print("Barcode 2 = " + str(bc2) + " Out of " + str(len(reads)))
+print("Barcode 3 = " + str(bc3) + " Out of " + str(len(reads)))
+print("Barcode 4 = " + str(bc4) + " Out of " + str(len(reads)))
+print("Barcode 5 = " + str(bc5) + " Out of " + str(len(reads)))
+print("Barcode 6 = " + str(bc6) + " Out of " + str(len(reads)))
+print("Barcode 7 = " + str(bc7) + " Out of " + str(len(reads)))
+print("Barcode 8 = " + str(bc8) + " Out of " + str(len(reads)))
+print("Barcode 9 = " + str(bc9) + " Out of " + str(len(reads)))
+print("Barcode 10 = " + str(bc10) + " Out of " + str(len(reads)))
+print("Barcode 11 = " + str(bc11) + " Out of " + str(len(reads)))
+print("Barcode 12 = " + str(bc12) + " Out of " + str(len(reads)))
+print("Barcode 13 = " + str(bc13) + " Out of " + str(len(reads)))
+print("Barcode 14 = " + str(bc14) + " Out of " + str(len(reads)))
+print("Barcode 15 = " + str(bc15) + " Out of " + str(len(reads)))
+print("Barcode 16 = " + str(bc16) + " Out of " + str(len(reads)))
+print("Barcode 17 = " + str(bc17) + " Out of " + str(len(reads)))
+print("Barcode 18 = " + str(bc18) + " Out of " + str(len(reads)))
+print("Barcode 19 = " + str(bc19) + " Out of " + str(len(reads)))
+print("Barcode 20 = " + str(bc20) + " Out of " + str(len(reads)))
+
+
+
+data = {"Start": av_s[0:25000], "End": av_e[0:25000], "Read": ready[0:25000], "Length": len_read[0:25000]} #change numbers of sections to plot graph for those section
+df = pd.DataFrame.from_dict(data)
+#plt.style.use('dark_background')
+ax = plt.gca()
+
+df.plot(kind='scatter', y='Length', x='Read', color="Green", ax=ax, s=0.1)
+df.plot(kind='scatter', y='End', x='Read', color="red", ax=ax, s=0.1)
+df.plot(kind='scatter', y='Start', x='Read', color='blue', ax=ax, s=0.1)
+ax.set_ylabel('Base pair')
+ax.set_xlabel('Read')
+
+plt.show()
