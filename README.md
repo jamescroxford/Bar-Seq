@@ -1,0 +1,2 @@
+# Bar-Seq
+# The file within this folder contains the code, run in Pycharm using python that counts the number of each barcode (JCb1-20) within a fastq file. A Levenshtein distance of 4 has been used but can be altered within the code. This code was used to count the number of barcodes within fastq files, generated through Oxford Nanopore sequencing used as part of the thesis for the project ‘Understanding the genome dynamics of Streptomyces clavuligerus during industrial fermentations’. 
