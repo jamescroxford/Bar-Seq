@@ -1,3 +1,5 @@
+# To calculate the relative abundance of each barcode the fastq files, produced by Oxford Nanopore Technologies basecalling were used as raw data. Pycharm (community edition 2022.2.1) was used to run the code (that can be found at here), to count the forward and reverse transcripts of each barcode accounting for a Levenshtein distance of 4. Barcode relative abundance was calculated by dividing the count of each barcode divided by the total number of detected barcodes. Barcode relative abundance was used as a proxy for the relative abundance of each barcoded strain of S. clavuligerus SC6.  
+
 from fuzzysearch import find_near_matches
 from colorama import Fore, Back, Style
 import matplotlib.pyplot as plt
