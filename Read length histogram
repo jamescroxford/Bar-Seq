@@ -1,0 +1,22 @@
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(ggplot2)
+library(readr)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+createReadLengthHistogram <- function(fastq_file) {
+  reads <- read_lines(fastq_file)
+  read_lengths <- nchar(substring(reads, 2))
+  df <- data.frame(ReadLength = read_lengths)
+  
+  ggplot(df, aes(x = ReadLength)) +
+    geom_histogram(binwidth = 5, fill = "#42a7f5", color = "black") +
+    labs(x = "Read length (bp)", y = "Frequency") +
+    scale_x_continuous(limits = c(0, 505), expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0,50000)) 
+}
+
+fastq_file_path <- "~/fastq/file/path.fastq"
+
+createReadLengthHistogram(fastq_file_path)
+```
