@@ -1,0 +1,95 @@
+import os
+import glob
+from fuzzysearch import find_near_matches
+from tqdm import tqdm
+
+
+class BarcodeFinder:
+    def __init__(self, barcodes):
+        self.barcodes = barcodes
+        self.results = {name: {"count": 0, "matches": [], "reverse_matches": []} for name in barcodes}
+        self.total_barcode_reads = 0
+
+    def complement(self, seq):
+        complement_map = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A'}
+        return ''.join([complement_map[base] for base in seq])
+
+    def parse_fastq(self, file_path):
+        with open(file_path, "r") as file:
+            while True:
+                name = file.readline().strip()
+                if not name:
+                    break
+                seq = file.readline().strip()
+                _ = file.readline()  # Skip the + line
+                quality = file.readline().strip()
+                yield name, seq, quality
+
+    def search_barcodes(self, file_path):
+        # Reset results and total barcode reads for each file
+        self.results = {name: {"count": 0, "matches": [], "reverse_matches": []} for name in self.barcodes}
+        self.total_barcode_reads = 0
+
+        # Get the total number of lines in the file (every 4 lines is a single read)
+        total_lines = sum(1 for _ in open(file_path))
+        total_reads = total_lines // 4  # Since every read has 4 lines
+
+        for _, read, _ in tqdm(self.parse_fastq(file_path), total=total_reads,
+                               desc=f"Processing {os.path.basename(file_path)}"):
+            for name, sequence in self.barcodes.items():
+                comp_seq = self.complement(sequence)
+                rev_comp_seq = comp_seq[::-1]
+
+                # Search for the barcode and its reverse complement
+                if find_near_matches(sequence, read, max_l_dist=1):
+                    self.results[name]["count"] += 1
+                    self.results[name]["matches"].append(read)
+                    self.total_barcode_reads += 1
+                elif find_near_matches(rev_comp_seq, read[::-1], max_l_dist=1):
+                    self.results[name]["count"] += 1
+                    self.results[name]["reverse_matches"].append(read)
+                    self.total_barcode_reads += 1
+
+    def report_results(self, file_name):
+        print(f"\nResults for file: {file_name}")
+        print("Barcode Count Summary:")
+        for name, result in self.results.items():
+            if self.total_barcode_reads > 0:
+                proportion = (result['count'] / self.total_barcode_reads) * 100
+                print(f"{name} {result['count']} {proportion:.2f}")
+            else:
+                print(f"{name} {result['count']} 0.00")
+
+
+if __name__ == "__main__":
+    barcodes = {
+        "JCb1": "TACAATAAAGGGCAGGTGCAACCAT",
+        "JCb2": "TGACCAAGCCTGAATAGCGTCATAA",
+        "JCb3": "CGTGTATTAGAGTAATCGCATCTAG",
+        "JCb4": "TAGCGTTAGCGGCCACGGAACATCA",
+        "JCb5": "TCCTCTCGGGAGGCCAATAGAAACG",
+        "JCb6": "TACGCTTGACCCGTGTAGCTGTCAG",
+        "JCb7": "TGGTTAACACGGAACCTGAGATCCC",
+        "JCb8": "TAGCACACCTAGCGTGAACCGAGCC",
+        "JCb9": "TTACCCATTAAGAGCTCAGCGCAAC",
+        "JCb10": "TACAGGGAAGACCTACCCGATTCCC",
+        "JCb11": "TAAGTCAAGTGTCCGGTTCTCCCCG",
+        "JCb12": "TCCGTGTTGTACGACGTTAGACAA",
+        "JCb13": "TAGTCTACCTCGCATGGCTAAGCGG",
+        "JCb14": "TATCCAGTCGGCGATAAGTATGCAA",
+        "JCb15": "TCACAGGGACAGGTCATATCGTTCT",
+        "JCb16": "TGACCCCGTAGTGCCGTTAAGTATC",
+        "JCb17": "TCAATAAGCGAGCCGTAAGTTGATC",
+        "JCb18": "TCAAAGATGCCCCGACTAGGTAATA",
+        "JCb19": "TCTGCACATCCAGGCGACCGAATAT",
+        "JCb20": "TCGACGATCATCGGTGAAGCGTTTG"
+    }
+
+    folder_path = "path/to/folder/with/all/fastq/files/in"  # Specify your folder path here
+    fastq_files = glob.glob(os.path.join(folder_path, "*.fastq"))  # Get all .fastq files in the folder
+
+    finder = BarcodeFinder(barcodes)
+
+    for file_path in fastq_files:
+        finder.search_barcodes(file_path)
+        finder.report_results(os.path.basename(file_path))  # Report results with the filename
